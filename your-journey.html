@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Journey — Admitly</title>
+<style>
+  :root {
+    --bg: #0f0f14;
+    --bg-alt: #16161d;
+    --text: #f2f2f4;
+    --text-muted: #bcbcc8;
+    --accent: #6c5ce7;
+    --accent-text: #ab9dff;
+    --accent-hover: #5849c4;
+    --border: #26262f;
+    --radius: 12px;
+    --max-width: 1080px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(15, 15, 20, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+
+  .logo { font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+
+  .nav-links a {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+
+  .btn-outline { border-color: var(--border); color: var(--text); background: transparent; }
+  .btn-outline:hover { border-color: var(--text-muted); }
+
+  .page-hero { padding: 80px 0 50px; text-align: center; }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    background: rgba(108, 92, 231, 0.12);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .page-hero p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Steps */
+  .steps {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin: 40px 0 36px;
+  }
+
+  .step-group + .step-group {
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+
+  .step-title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .step-title h3 { font-size: 1.05rem; font-weight: 700; }
+  .step-hint { font-size: 0.85rem; color: var(--text-muted); margin-top: -8px; margin-bottom: 14px; margin-left: 32px; }
+
+  .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-left: 32px; }
+
+  .chip {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    font-size: 0.88rem;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-muted);
+    transition: all 0.15s;
+  }
+
+  .chip:hover { border-color: var(--text-muted); color: var(--text); }
+
+  .chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .chip.level-chip { padding: 10px 22px; font-size: 0.95rem; font-weight: 600; }
+
+  .chip.disabled { opacity: 0.35; cursor: not-allowed; }
+  .chip.disabled:hover { border-color: var(--border); color: var(--text-muted); }
+
+  /* Results */
+  .results-heading {
+    text-align: center;
+    margin: 56px 0 28px;
+  }
+
+  .results-heading h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+  .results-heading p { color: var(--text-muted); font-size: 0.95rem; }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+    padding-bottom: 20px;
+  }
+
+  .salary-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+
+  .salary-card.available { border-color: rgba(108, 92, 231, 0.4); }
+
+  .salary-card .flag { font-size: 1.8rem; margin-bottom: 10px; }
+
+  .salary-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+
+  .salary-card .field-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; }
+
+  .salary-card .amount {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--accent-text);
+    letter-spacing: -0.02em;
+  }
+
+  .salary-card .eur-equivalent {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .salary-card .amount-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+
+  .salary-card .net-block {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .salary-card .net-amount {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .salary-card .net-eur-equivalent {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .salary-card .net-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+
+  .salary-card .coming-soon {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 20px 0 4px;
+  }
+
+  .salary-card .coming-soon-note {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .salary-card .confidence-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .max-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    min-height: 20px;
+  }
+
+  .source-note {
+    max-width: 700px;
+    margin: 40px auto 90px;
+    padding: 20px 24px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .source-note a { color: var(--accent-text); }
+  .source-note a:hover { text-decoration: underline; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .chip-group, .step-hint { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="index.html" class="logo">Admitly</a>
+      <ul class="nav-links">
+        <li><a href="index.html#features">Services</a></li>
+        <li><a href="opportunities.html">Universities</a></li>
+        <li><a href="your-plan.html">Countries</a></li>
+        <li><a href="your-journey.html" class="active">Your Journey</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <a href="index.html#contact" class="btn btn-primary">Book a Consultation</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Your Journey</span>
+    <h1>What could your degree be worth?</h1>
+    <p>Pick your study level and field, then compare real starting salaries across your target countries. We're building this out country by country — starting with Germany.</p>
+  </div>
+</section>
+
+<section class="container">
+  <div class="steps">
+    <div class="step-group">
+      <div class="step-title">
+        <span class="step-number">1</span>
+        <h3>Degree level</h3>
+      </div>
+      <div class="chip-group" id="level-group">
+        <button class="chip level-chip active" data-level="bachelor">Bachelor's</button>
+        <button class="chip level-chip" data-level="master">Master's</button>
+      </div>
+    </div>
+
+    <div class="step-group">
+      <div class="step-title">
+        <span class="step-number">2</span>
+        <h3>Field of study</h3>
+      </div>
+      <div class="chip-group" id="field-group"></div>
+    </div>
+
+    <div class="step-group">
+      <div class="step-title">
+        <span class="step-number">3</span>
+        <h3>Countries to compare</h3>
+      </div>
+      <div class="step-hint">Choose up to 3.</div>
+      <div class="chip-group" id="country-group"></div>
+      <div class="max-note" id="max-note"></div>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="results-heading">
+    <h2 id="results-title">Bachelor's · Computer Science &amp; IT</h2>
+    <p>Gross starting salary, full-time, roughly one year after graduation — with an estimated net (take-home) salary for a single person underneath. UK and Switzerland also show euro equivalents for easier comparison.</p>
+  </div>
+  <div class="results-grid" id="results-grid"></div>
+</section>
+
+<div class="container">
+  <p class="source-note">
+    <strong>Germany:</strong> median entry-level gross salaries from the <a href="https://www.stepstone.de/e-recruiting/hr-wissen/gehalt/einstiegsgehalt/" target="_blank" rel="noopener">Stepstone Gehaltsreport 2026</a>, cross-referenced with the <a href="https://www.profiling-institut.de/ranking/gehaltsranking-studienfach-2026/" target="_blank" rel="noopener">Profiling Institut Gehaltsranking 2026</a> (Stepstone + kununu + Destatis).
+    <strong>United Kingdom:</strong> Bachelor's figures from the official <a href="https://www.hesa.ac.uk" target="_blank" rel="noopener">HESA Graduate Outcomes survey</a> (salary 15 months after graduation, via Prospects Luminate analysis); Master's figures estimated using the documented postgraduate salary premium reported by <a href="https://www.findamasters.com/guides/masters-employability" target="_blank" rel="noopener">FindAMasters/ONS</a>.
+    <strong>Netherlands:</strong> Keuzegids Universiteiten 2026 starting-salary rankings, based on SEO Economisch Onderzoek research with CBS, via <a href="https://www.beaks.nl/startsalaris-wo/" target="_blank" rel="noopener">Beaks.nl</a>.
+    <strong>Switzerland:</strong> compiled from the Swiss Federal Statistical Office (BFS) graduate salary study (via <a href="https://www.cash.ch/news/top-news/die-lohne-der-uni-absolventen-in-der-schweiz-840048" target="_blank" rel="noopener">cash.ch/Beobachter</a>) and industry salary reports; fields without a direct BFS figure are estimated from comparable fields.
+    <strong>Italy:</strong> based on net monthly salary one year after graduation by discipline group, from the <a href="https://www.almalaurea.it" target="_blank" rel="noopener">AlmaLaurea</a> graduate survey (via Unicusano's compilation), then grossed up using typical Italian income-tax and social-contribution rates for these income levels, so it's shown gross like every other country here.
+    <strong>Spain:</strong> estimated from <a href="https://www.fundacioncyd.org" target="_blank" rel="noopener">Fundación CYD</a> graduate employment data and current market salary surveys (Randstad, Michael Page, Adecco), since no single official source publishes first-year salary broken down this way.
+    <br><br>
+    <strong>Net salaries:</strong> modeled, not pulled from a payslip — each figure applies that country's official 2026 income-tax brackets and mandatory employee social-insurance rates to the gross salary above, for a single taxpayer with no children, no church tax, and no other deductions or allowances. Sources: Germany — <a href="https://www.gesetze-im-internet.de/estg/__32a.html" target="_blank" rel="noopener">§32a EStG tariff</a> (Bundesfinanzministerium); United Kingdom — <a href="https://www.gov.uk/income-tax-rates" target="_blank" rel="noopener">HMRC income tax bands</a> and <a href="https://www.gov.uk/national-insurance-rates-letters" target="_blank" rel="noopener">Class 1 National Insurance rates</a> for 2026/27; Switzerland — <a href="https://www.estv.admin.ch/de/steuertarife-zur-direkten-bundessteuer" target="_blank" rel="noopener">ESTV direct federal tax tariff</a> combined with Canton/City of Zurich cantonal and communal rates (other cantons can differ by 20+ percentage points, see our tax-regime notes) and <a href="https://www.bsv.admin.ch" target="_blank" rel="noopener">BSV/BVG</a> contribution parameters; Netherlands — <a href="https://www.belastingdienst.nl" target="_blank" rel="noopener">Belastingdienst</a> Box 1 rates and heffingskorting formulas; Italy — <a href="https://www.agenziaentrate.gov.it" target="_blank" rel="noopener">Agenzia delle Entrate</a> IRPEF brackets and employee detrazioni, <a href="https://www.inps.it" target="_blank" rel="noopener">INPS</a> contribution rate, plus Lombardy/Milan surtaxes; Spain — <a href="https://sede.agenciatributaria.gob.es" target="_blank" rel="noopener">Agencia Tributaria</a> state IRPF scale, the Comunidad de Madrid regional scale, and Social Security employee contributions. These are close approximations of what an official calculator would return for this profile, not a substitute for a real tax return or payroll estimate — actual take-home pay depends on your specific circumstances, canton/region of residence, and any allowances or deductions you're entitled to.
+    <br><br>
+    Euro equivalents for the UK (£) and Switzerland (CHF) use approximate exchange rates of £1 ≈ €1.17 and CHF 1 ≈ €1.07 (August 2026); these fluctuate, so treat them as indicative, not exact.
+    <br><br>
+    Fields don't map 1:1 across national statistics, so figures for "Business Informatics," "Mechanical Engineering," and similar categories are sometimes blended from the closest reported equivalents. Treat these as directional estimates for planning, not guarantees — always verify against the latest source before making decisions.
+  </p>
+</div>
+
+<footer>
+  <div class="container">
+    &copy; 2026 Admitly. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  const fields = [
+    { key: "cs", label: "Computer Science & IT" },
+    { key: "engineering", label: "Mechanical Engineering" },
+    { key: "businessInformatics", label: "Business Informatics" },
+    { key: "business", label: "Business & Management" },
+    { key: "math", label: "Mathematics & Statistics" },
+    { key: "chemistry", label: "Chemistry" },
+    { key: "psychology", label: "Psychology" }
+  ];
+
+  const countries = [
+    {
+      key: "germany", flag: "🇩🇪", name: "Germany", currency: "€", basis: "gross",
+      confidenceNote: "Field-level survey data. Net modeled on the official 2026 §32a EStG tariff + statutory social insurance (single, no children, no church tax)",
+      data: {
+        cs: { bachelor: { gross: 44000, net: 29092 }, master: { gross: 55000, net: 34998 } },
+        engineering: { bachelor: { gross: 44000, net: 29092 }, master: { gross: 54000, net: 34473 } },
+        businessInformatics: { bachelor: { gross: 42000, net: 27990 }, master: { gross: 52000, net: 33414 } },
+        business: { bachelor: { gross: 38000, net: 25758 }, master: { gross: 48000, net: 31271 } },
+        math: { bachelor: { gross: 46000, net: 30186 }, master: { gross: 56000, net: 35522 } },
+        chemistry: { bachelor: { gross: 40000, net: 26878 }, master: { gross: 50000, net: 32347 } },
+        psychology: { bachelor: { gross: 30000, net: 21187 }, master: { gross: 40000, net: 26878 } }
+      }
+    },
+    {
+      key: "uk", flag: "🇬🇧", name: "United Kingdom", currency: "£", basis: "gross", eurRate: 1.17,
+      confidenceNote: "Bachelor's: official survey. Master's: estimated premium. Net modeled on official 2026/27 HMRC income tax bands + Class 1 National Insurance (single, no children)",
+      data: {
+        cs: { bachelor: { gross: 29000, net: 24400 }, master: { gross: 32000, net: 26560 } },
+        engineering: { bachelor: { gross: 33000, net: 27280 }, master: { gross: 36000, net: 29440 } },
+        businessInformatics: { bachelor: { gross: 29500, net: 24760 }, master: { gross: 32500, net: 26920 } },
+        business: { bachelor: { gross: 30000, net: 25120 }, master: { gross: 33000, net: 27280 } },
+        math: { bachelor: { gross: 34500, net: 28360 }, master: { gross: 37500, net: 30520 } },
+        chemistry: { bachelor: { gross: 30000, net: 25120 }, master: { gross: 33000, net: 27280 } },
+        psychology: { bachelor: { gross: 26500, net: 22600 }, master: { gross: 29500, net: 24760 } }
+      }
+    },
+    {
+      key: "switzerland", flag: "🇨🇭", name: "Switzerland", currency: "CHF ", basis: "gross", eurRate: 1.07,
+      confidenceNote: "Estimated from national salary studies. Net modeled for Canton/City of Zurich (single, no religion) using the 2026 federal, cantonal & communal tax structure plus AHV/ALV/BVG contribution rates — other cantons vary significantly",
+      data: {
+        cs: { bachelor: { gross: 75000, net: 61588 }, master: { gross: 84000, net: 68003 } },
+        engineering: { bachelor: { gross: 75000, net: 61588 }, master: { gross: 85000, net: 68706 } },
+        businessInformatics: { bachelor: { gross: 78000, net: 63744 }, master: { gross: 86000, net: 69407 } },
+        business: { bachelor: { gross: 80000, net: 65171 }, master: { gross: 90000, net: 72256 } },
+        math: { bachelor: { gross: 72000, net: 59414 }, master: { gross: 82000, net: 66591 } },
+        chemistry: { bachelor: { gross: 68000, net: 56487 }, master: { gross: 78000, net: 63744 } },
+        psychology: { bachelor: { gross: 58000, net: 49027 }, master: { gross: 68000, net: 56487 } }
+      }
+    },
+    {
+      key: "netherlands", flag: "🇳🇱", name: "Netherlands", currency: "€", basis: "gross",
+      confidenceNote: "Field-level survey data. Net modeled on the official 2026 Box 1 tax bands plus algemene heffingskorting & arbeidskorting tax credits (single, no children)",
+      data: {
+        cs: { bachelor: { gross: 34500, net: 30664 }, master: { gross: 39000, net: 33254 } },
+        engineering: { bachelor: { gross: 33500, net: 30085 }, master: { gross: 37500, net: 32402 } },
+        businessInformatics: { bachelor: { gross: 34500, net: 30664 }, master: { gross: 38500, net: 32981 } },
+        business: { bachelor: { gross: 34000, net: 30375 }, master: { gross: 38500, net: 32981 } },
+        math: { bachelor: { gross: 33000, net: 29796 }, master: { gross: 37000, net: 32112 } },
+        chemistry: { bachelor: { gross: 31500, net: 28927 }, master: { gross: 36000, net: 31533 } },
+        psychology: { bachelor: { gross: 29000, net: 27433 }, master: { gross: 33500, net: 30085 } }
+      }
+    },
+    {
+      key: "italy", flag: "🇮🇹", name: "Italy", currency: "€", basis: "gross",
+      confidenceNote: "Field-group data, grossed up from reported net salary. Net re-modeled for Milan (single, no dependents) using 2026 IRPEF national brackets, employee tax credits, INPS contributions and Lombardy/Milan regional & municipal surtaxes",
+      data: {
+        cs: { bachelor: { gross: 29000, net: 22806 }, master: { gross: 32000, net: 24411 } },
+        engineering: { bachelor: { gross: 28000, net: 22208 }, master: { gross: 31500, net: 24156 } },
+        businessInformatics: { bachelor: { gross: 27000, net: 21610 }, master: { gross: 29500, net: 23105 } },
+        business: { bachelor: { gross: 25500, net: 20714 }, master: { gross: 27500, net: 21909 } },
+        math: { bachelor: { gross: 23000, net: 19387 }, master: { gross: 25500, net: 20714 } },
+        chemistry: { bachelor: { gross: 22500, net: 19084 }, master: { gross: 24500, net: 20294 } },
+        psychology: { bachelor: { gross: 18000, net: 17022 }, master: { gross: 20000, net: 18013 } }
+      }
+    },
+    {
+      key: "spain", flag: "🇪🇸", name: "Spain", currency: "€", basis: "gross",
+      confidenceNote: "Estimated from national salary data. Net modeled for Madrid (single, no dependents) using 2026 state + Comunidad de Madrid IRPF scales, the work-income reduction and Social Security employee contributions",
+      data: {
+        cs: { bachelor: { gross: 27000, net: 21391 }, master: { gross: 31000, net: 24119 } },
+        engineering: { bachelor: { gross: 24500, net: 19581 }, master: { gross: 28500, net: 22429 } },
+        businessInformatics: { bachelor: { gross: 24000, net: 19219 }, master: { gross: 27500, net: 21752 } },
+        business: { bachelor: { gross: 21000, net: 17047 }, master: { gross: 24000, net: 19219 } },
+        math: { bachelor: { gross: 23000, net: 18495 }, master: { gross: 26500, net: 21029 } },
+        chemistry: { bachelor: { gross: 21500, net: 17409 }, master: { gross: 24500, net: 19581 } },
+        psychology: { bachelor: { gross: 18000, net: 15291 }, master: { gross: 24500, net: 19581 } }
+      }
+    }
+  ];
+
+  const state = {
+    level: "bachelor",
+    field: "cs",
+    selectedCountries: new Set(["germany"])
+  };
+
+  const fieldGroup = document.getElementById("field-group");
+  fields.forEach(f => {
+    const chip = document.createElement("button");
+    chip.className = "chip" + (f.key === state.field ? " active" : "");
+    chip.textContent = f.label;
+    chip.dataset.field = f.key;
+    chip.addEventListener("click", () => {
+      state.field = f.key;
+      document.querySelectorAll("#field-group .chip").forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      render();
+    });
+    fieldGroup.appendChild(chip);
+  });
+
+  document.querySelectorAll("#level-group .chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      state.level = chip.dataset.level;
+      document.querySelectorAll("#level-group .chip").forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      render();
+    });
+  });
+
+  const countryGroup = document.getElementById("country-group");
+  const maxNote = document.getElementById("max-note");
+  countries.forEach(c => {
+    const chip = document.createElement("button");
+    chip.className = "chip" + (state.selectedCountries.has(c.key) ? " active" : "");
+    chip.textContent = c.flag + " " + c.name;
+    chip.dataset.country = c.key;
+    chip.addEventListener("click", () => {
+      if (state.selectedCountries.has(c.key)) {
+        state.selectedCountries.delete(c.key);
+        maxNote.textContent = "";
+      } else {
+        if (state.selectedCountries.size >= 3) {
+          maxNote.textContent = "You can compare up to 3 countries at a time — deselect one to add another.";
+          return;
+        }
+        state.selectedCountries.add(c.key);
+        maxNote.textContent = "";
+      }
+      document.querySelectorAll("#country-group .chip").forEach(cc => {
+        cc.classList.toggle("active", state.selectedCountries.has(cc.dataset.country));
+      });
+      render();
+    });
+    countryGroup.appendChild(chip);
+  });
+
+  const resultsGrid = document.getElementById("results-grid");
+  const resultsTitle = document.getElementById("results-title");
+
+  function formatAmount(c, n) {
+    return c.currency + n.toLocaleString("en-US");
+  }
+
+  function render() {
+    const fieldObj = fields.find(f => f.key === state.field);
+    const levelLabel = state.level === "bachelor" ? "Bachelor's" : "Master's";
+    resultsTitle.textContent = levelLabel + " · " + fieldObj.label;
+
+    resultsGrid.innerHTML = "";
+
+    if (state.selectedCountries.size === 0) {
+      resultsGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 40px 0;">Select at least one country to see results.</p>';
+      return;
+    }
+
+    countries.forEach(c => {
+      if (!state.selectedCountries.has(c.key)) return;
+
+      const card = document.createElement("div");
+      const figures = c.data[state.field][state.level];
+      const amount = figures.gross;
+      const netAmount = figures.net;
+      const basisLabel = c.basis === "net" ? "Median net / year" : "Median gross / year";
+      const eurLine = c.eurRate
+        ? `<div class="eur-equivalent">≈ €${Math.round(amount * c.eurRate).toLocaleString("en-US")}</div>`
+        : "";
+      const netEurLine = c.eurRate
+        ? `<div class="net-eur-equivalent">≈ €${Math.round(netAmount * c.eurRate).toLocaleString("en-US")}</div>`
+        : "";
+
+      card.className = "salary-card available";
+      card.innerHTML = `
+        <div class="flag">${c.flag}</div>
+        <h3>${c.name}</h3>
+        <div class="field-label">${levelLabel} · ${fieldObj.label}</div>
+        <div class="amount">${formatAmount(c, amount)}</div>
+        ${eurLine}
+        <div class="amount-label">${basisLabel}</div>
+        <div class="net-block">
+          <div class="net-amount">${formatAmount(c, netAmount)}</div>
+          ${netEurLine}
+          <div class="net-label">Est. net / year, single, no children</div>
+        </div>
+        <div class="confidence-note">${c.confidenceNote}</div>
+      `;
+
+      resultsGrid.appendChild(card);
+    });
+  }
+
+  render();
+</script>
+
+</body>
+</html>

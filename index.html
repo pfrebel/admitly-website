@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admitly — Helping students go further</title>
+<style>
+  :root {
+    --bg: #0f0f14;
+    --bg-alt: #16161d;
+    --text: #f2f2f4;
+    --text-muted: #bcbcc8;
+    --accent: #6c5ce7;
+    --accent-text: #ab9dff;
+    --accent-hover: #5849c4;
+    --border: #26262f;
+    --radius: 12px;
+    --max-width: 1080px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(15, 15, 20, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-primary:hover { background: var(--accent-hover); }
+
+  .btn-outline {
+    border-color: var(--border);
+    color: var(--text);
+  }
+
+  .btn-outline:hover { border-color: var(--text-muted); }
+
+  /* Hero */
+  .hero {
+    padding: 120px 0 100px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    background: rgba(108, 92, 231, 0.12);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .success-badge {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text);
+    background: rgba(108, 92, 231, 0.14);
+    border: 1px solid rgba(108, 92, 231, 0.4);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin: 12px 0;
+  }
+
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin: 0 auto 36px;
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .hero-actions .btn { padding: 13px 28px; font-size: 0.95rem; }
+
+  .hero-note {
+    margin-top: 28px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* How we help (hero preview strip) */
+  .how-we-help {
+    padding: 0 0 90px;
+  }
+
+  .preview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .preview-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .preview-card:hover {
+    transform: translateY(-3px);
+    border-color: #3a3a46;
+  }
+
+  .preview-card .card-icon {
+    flex-shrink: 0;
+  }
+
+  .preview-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .preview-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .preview-card .preview-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+
+  .preview-card .preview-link:hover { text-decoration: underline; }
+
+  /* Sections */
+  section { padding: 90px 0; }
+
+  .section-header {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 56px;
+  }
+
+  .section-header .eyebrow { margin-bottom: 16px; }
+
+  h2 {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+
+  .section-header p { color: var(--text-muted); font-size: 1.05rem; }
+
+  /* Features grid */
+  .features {
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: #3a3a46;
+  }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(108, 92, 231, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .card p { color: var(--text-muted); font-size: 0.95rem; }
+
+  /* Services (two-service layout) */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .service-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-3px);
+    border-color: #3a3a46;
+  }
+
+  .service-card .card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    font-size: 1.5rem;
+  }
+
+  .service-card h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin: 18px 0 10px;
+  }
+
+  .service-card .service-desc {
+    color: var(--text-muted);
+    font-size: 0.98rem;
+  }
+
+  .service-list {
+    list-style: none;
+    margin-top: 22px;
+  }
+
+  .service-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .service-list li:first-child { border-top: none; padding-top: 0; }
+
+  .service-list li::before {
+    content: "✓";
+    color: var(--accent-text);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* About */
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-content p { color: var(--text-muted); margin-bottom: 16px; }
+
+  .about-divider {
+    border-top: 1px solid var(--border);
+    margin: 70px 0 56px;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .stat {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+
+  .stat .num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent-text);
+  }
+
+  .stat .label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+
+  /* CTA */
+  .cta {
+    background: linear-gradient(135deg, #6c5ce7, #4834d4);
+    border-radius: 20px;
+    text-align: center;
+    padding: 70px 40px;
+    margin: 0 24px;
+  }
+
+  .cta h2 { color: #fff; }
+  .cta p { color: rgba(255,255,255,0.85); max-width: 480px; margin: 0 auto 32px; }
+  .cta .btn-primary { background: #fff; color: #4834d4; }
+  .cta .btn-primary:hover { background: #f0f0f0; }
+
+  /* Contact */
+  .contact-wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  /* Gallery */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .gallery-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+  }
+
+  .gallery-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gallery-caption {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .gallery-caption h3 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .gallery-caption span {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .about-content { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .preview-grid { grid-template-columns: 1fr; }
+    section { padding: 64px 0; }
+    .hero { padding: 90px 0 70px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="#" class="logo">Admitly</a>
+      <ul class="nav-links">
+        <li><a href="#features">Services</a></li>
+        <li><a href="opportunities.html">Universities</a></li>
+        <li><a href="your-plan.html">Countries</a></li>
+        <li><a href="your-journey.html">Your Journey</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary">Book a Consultation</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">Admitly · Advisory &amp; Application Support</span>
+    <h1>From "where should I<br>even apply?" to an offer.</h1>
+    <p>Costs and opportunities vary drastically across the continent, making the decision of where — and how — to start your career difficult to navigate. We help in two ways: Advisory to find the right fit, and Application Support to get you admitted.</p>
+    <p>Our experts have studied and worked in each of the countries and universities we advise on, and know the advantages and hurdles in and out.</p>
+  </div>
+</section>
+
+<section class="how-we-help">
+  <div class="container">
+    <h2 style="text-align: center; margin-bottom: 32px;">Our Offerings</h2>
+    <div class="preview-grid">
+      <div class="preview-card">
+        <div class="card-icon">🧭</div>
+        <div>
+          <h3>Advisory</h3>
+          <p>Not sure where a given degree leads? We match you to countries, universities, and programs based on your career goals.</p>
+          <a href="#advisory" class="preview-link">See what's included →</a>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="card-icon">📝</div>
+        <div>
+          <h3>Application Support</h3>
+          <p>Know where you're aiming? We manage every deadline, document, and detail of the application itself.</p>
+          <div class="success-badge">🎯 Success-based, by design: no offer, no fee.</div>
+          <a href="application-support.html" class="preview-link">See what's included →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Where our students go</span>
+      <h2>World-class universities</h2>
+      <p>From Oxford and Cambridge to ETH Zurich, we help students reach the institutions that shape careers.</p>
+      <div style="margin-top: 20px;">
+        <a href="opportunities.html" class="btn btn-outline">Browse All Universities</a>
+      </div>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <img src="images/oxford-radcliffe-camera.svg" alt="University of Oxford — Radcliffe Camera">
+        <div class="gallery-caption">
+          <h3>University of Oxford</h3>
+          <span>UK</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/cambridge-kings-college.svg" alt="University of Cambridge — King's College Chapel">
+        <div class="gallery-caption">
+          <h3>University of Cambridge</h3>
+          <span>UK</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/eth-zurich-main-building.svg" alt="ETH Zurich — Main Building">
+        <div class="gallery-caption">
+          <h3>ETH Zurich</h3>
+          <span>Switzerland</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img src="images/imperial-college-london.svg" alt="Imperial College London — Queen's Tower">
+        <div class="gallery-caption">
+          <h3>Imperial College London</h3>
+          <span>UK</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-content">
+      <div>
+        <span class="eyebrow">About Admitly</span>
+        <h2>Helping students go further</h2>
+        <p>Admitly is an admissions consulting firm dedicated to helping students from around the world gain entry to top universities in the UK and Europe. We combine deep knowledge of admissions systems with personal, one-on-one mentorship.</p>
+        <p>Whatever your background, our goal is the same: give you the clearest, strongest possible path to the university you deserve.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><div class="num">500+</div><div class="label">Students placed</div></div>
+        <div class="stat"><div class="num">30+</div><div class="label">Countries reached</div></div>
+        <div class="stat"><div class="num">90%</div><div class="label">Offer success rate</div></div>
+        <div class="stat"><div class="num">1:1</div><div class="label">Personal mentorship</div></div>
+      </div>
+    </div>
+
+    <div class="about-divider"></div>
+
+    <div class="section-header" id="features">
+      <span class="eyebrow">Services</span>
+      <h2>Two services. One clear path.</h2>
+      <p>From figuring out where to aim to getting the offer in hand.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card" id="advisory">
+        <div class="card-icon">🧭</div>
+        <h3>Advisory</h3>
+        <p class="service-desc">Not sure where a given degree actually leads? We start with your career goals and work backward — matching you to the countries, universities, and programs that actually get you there.</p>
+        <ul class="service-list">
+          <li>Career-goal discovery &amp; strategy session</li>
+          <li>Personalized university &amp; course shortlist across the UK and Europe</li>
+          <li>Country and pathway comparison — cost, visas, career outcomes</li>
+          <li>Ongoing mentorship as your goals evolve</li>
+        </ul>
+      </div>
+      <div class="service-card" id="application-support">
+        <div class="card-icon">📝</div>
+        <h3>Application Support</h3>
+        <p class="service-desc">Once you know where you're aiming, we help you get there — managing every deadline, document, and detail of the application itself.</p>
+        <ul class="service-list">
+          <li>Personal statement &amp; essay coaching</li>
+          <li>Full application strategy — UCAS and individual university portals</li>
+          <li>Standardized test strategy — TOEFL, GRE, GMAT</li>
+          <li>Visa &amp; relocation guidance once you have an offer</li>
+        </ul>
+        <a href="application-support.html" class="preview-link" style="display: inline-block; margin-top: 22px;">Compare Standard vs. Premium →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cta">
+    <h2>Ready to start your journey?</h2>
+    <p>Book a free consultation and let's map out your path to a top UK or European university.</p>
+    <a href="#contact" class="btn btn-primary">Book a Free Consultation</a>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container contact-wrap">
+    <span class="eyebrow">Contact</span>
+    <h2>Get in touch</h2>
+    <p style="color: var(--text-muted);">Have a question, or ready to start your application journey? Reach out and we'll get back to you.</p>
+    <div class="contact-links">
+      <a href="mailto:hello@admitly.com" class="btn btn-outline">Email</a>
+      <a href="#" class="btn btn-outline">LinkedIn</a>
+      <a href="#" class="btn btn-outline">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    &copy; 2026 Admitly. All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>

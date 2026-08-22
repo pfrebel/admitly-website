@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Browse All Universities — Admitly</title>
+<style>
+  :root {
+    --bg: #0f0f14;
+    --bg-alt: #16161d;
+    --text: #f2f2f4;
+    --text-muted: #bcbcc8;
+    --accent: #6c5ce7;
+    --accent-text: #ab9dff;
+    --accent-hover: #5849c4;
+    --border: #26262f;
+    --radius: 12px;
+    --max-width: 1080px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(15, 15, 20, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+
+  .logo { font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+
+  .nav-links a {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+
+  .btn-outline { border-color: var(--border); color: var(--text); background: transparent; }
+  .btn-outline:hover { border-color: var(--text-muted); }
+
+  .page-hero { padding: 80px 0 50px; text-align: center; }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    background: rgba(108, 92, 231, 0.12);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .page-hero p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Filters */
+  .filters {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin: 40px 0 36px;
+  }
+
+  .filter-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+
+  .filter-group label.filter-title {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .chip {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-muted);
+    transition: all 0.15s;
+  }
+
+  .chip:hover { border-color: var(--text-muted); color: var(--text); }
+
+  .chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .filters-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .result-count { color: var(--text-muted); font-size: 0.9rem; }
+
+  .reset-link {
+    font-size: 0.85rem;
+    color: var(--accent-text);
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .reset-link:hover { text-decoration: underline; }
+
+  /* Results grid */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 22px;
+    padding: 10px 0 90px;
+  }
+
+  .opp-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    transition: transform 0.2s, border-color 0.2s;
+    scroll-margin-top: 100px;
+  }
+
+  .opp-card.highlight-pulse {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.25);
+  }
+
+  .opp-card:hover { transform: translateY(-3px); border-color: #3a3a46; }
+
+  .opp-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .opp-top h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
+
+  .opp-country {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .opp-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .badge-low { background: rgba(46, 204, 113, 0.15); color: #2ecc71; }
+  .badge-mid { background: rgba(255, 190, 60, 0.15); color: #ffbe3c; }
+  .badge-high { background: rgba(255, 107, 107, 0.15); color: #ff6b6b; }
+
+  .opp-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .opp-stat .num { font-weight: 700; font-size: 1.05rem; color: var(--accent-text); }
+  .opp-stat .label { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+  .opp-programs {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+
+  .opp-programs strong { color: var(--text); font-weight: 600; }
+
+  .opp-levels {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .level-pill {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-text);
+    background: rgba(108, 92, 231, 0.12);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+
+  .disclaimer {
+    max-width: 700px;
+    margin: 0 auto 60px;
+    padding: 20px 24px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="index.html" class="logo">Admitly</a>
+      <ul class="nav-links">
+        <li><a href="index.html#features">Services</a></li>
+        <li><a href="opportunities.html" class="active">Universities</a></li>
+        <li><a href="your-plan.html">Countries</a></li>
+        <li><a href="your-journey.html">Your Journey</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <a href="index.html#contact" class="btn btn-primary">Book a Consultation</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Browse All Universities</span>
+    <h1>Find your fit — by country, budget, or earning potential</h1>
+    <p>Filter universities across the UK and Europe to compare tuition costs and typical graduate outcomes, and build a shortlist that matches your goals.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="filters">
+    <div class="filter-row">
+      <div class="filter-group">
+        <label class="filter-title">Country</label>
+        <div class="chip-group" id="country-filters"></div>
+      </div>
+      <div class="filter-group">
+        <label class="filter-title">Annual Budget</label>
+        <div class="chip-group" id="budget-filters">
+          <button class="chip" data-filter="budget" data-value="low">Under €10k/yr</button>
+          <button class="chip" data-filter="budget" data-value="mid">€10k–€30k/yr</button>
+          <button class="chip" data-filter="budget" data-value="high">€30k+/yr</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label class="filter-title">Earning Potential</label>
+        <div class="chip-group" id="earning-filters">
+          <button class="chip" data-filter="earning" data-value="strong">Strong (~€30–45k)</button>
+          <button class="chip" data-filter="earning" data-value="high">High (~€45–70k)</button>
+          <button class="chip" data-filter="earning" data-value="veryhigh">Very High (€70k+)</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label class="filter-title">Program Level</label>
+        <div class="chip-group" id="level-filters">
+          <button class="chip" data-filter="level" data-value="bachelor">Bachelor's</button>
+          <button class="chip" data-filter="level" data-value="master">Master's</button>
+        </div>
+      </div>
+    </div>
+    <div class="filters-footer">
+      <span class="result-count" id="result-count">12 universities</span>
+      <button class="reset-link" id="reset-btn">Reset filters</button>
+    </div>
+  </div>
+
+  <div class="results-grid" id="results-grid"></div>
+
+  <div class="disclaimer">
+    Tuition and graduate salary figures are approximate, based on published university fee schedules and graduate outcome surveys as of 2026. Actual costs and outcomes vary by program, funding, and year — treat these as a starting point for research, not a quote. We'll confirm exact figures for your target programs during a consultation.
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    &copy; 2026 Admitly. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  const opportunities = [
+    {
+      name: "University of Oxford",
+      country: "UK",
+      levels: ["bachelor", "master"],
+      budget: "high",
+      tuitionLabel: "£37,400–£62,800/yr",
+      earning: "high",
+      earningLabel: "~£33k–£40k (15mo); Economics/Finance notably higher",
+      programs: "PPE, Economics & Management, Law, Medicine, Engineering"
+    },
+    {
+      name: "University of Cambridge",
+      country: "UK",
+      levels: ["bachelor", "master"],
+      budget: "high",
+      tuitionLabel: "£29,000–£70,500/yr",
+      earning: "high",
+      earningLabel: "~£46.5k median (5yr); Economics grads ~£91.6k",
+      programs: "Natural Sciences, Economics, Engineering, Law, Medicine"
+    },
+    {
+      name: "Imperial College London",
+      country: "UK",
+      levels: ["bachelor", "master"],
+      budget: "high",
+      tuitionLabel: "£35,100–£51,000/yr",
+      earning: "veryhigh",
+      earningLabel: "~£53.3k median (5yr); strong STEM/finance outcomes",
+      programs: "Engineering, Computing, Medicine, Business (Imperial Business School)"
+    },
+    {
+      name: "London School of Economics (LSE)",
+      country: "UK",
+      levels: ["bachelor", "master"],
+      budget: "high",
+      tuitionLabel: "£27,500–£45,000/yr",
+      earning: "veryhigh",
+      earningLabel: "~£32k starting, ~£55k median (5yr)",
+      programs: "Economics, Finance, International Relations, Law"
+    },
+    {
+      name: "University College London (UCL)",
+      country: "UK",
+      levels: ["bachelor", "master"],
+      budget: "high",
+      tuitionLabel: "£26,200–£57,700/yr",
+      earning: "high",
+      earningLabel: "~£30k starting median",
+      programs: "Architecture, Medicine, Law, Engineering, Social Sciences"
+    },
+    {
+      name: "University of Edinburgh",
+      country: "UK",
+      levels: ["bachelor", "master"],
+      budget: "mid",
+      tuitionLabel: "£26,500–£40,900/yr",
+      earning: "strong",
+      earningLabel: "~£28k–£32k starting; finance/tech roles £45k+",
+      programs: "Informatics, Medicine, Business, Law, Life Sciences"
+    },
+    {
+      name: "ETH Zurich",
+      country: "Switzerland",
+      levels: ["master"],
+      budget: "low",
+      tuitionLabel: "~CHF 4,400/yr (~€4,700) for international students",
+      earning: "veryhigh",
+      earningLabel: "~CHF 97k–105k (~€100k–110k) median for master's grads",
+      programs: "Engineering, Computer Science, Physics, Architecture (Bachelor's taught in German; Master's in English)"
+    },
+    {
+      name: "University of Amsterdam",
+      country: "Netherlands",
+      levels: ["bachelor", "master"],
+      budget: "mid",
+      tuitionLabel: "€19,100–€26,000/yr",
+      earning: "high",
+      earningLabel: "In line with strong Dutch graduate averages (~€40k+)",
+      programs: "Economics & Business, Psychology, Law, Liberal Arts (PPLE)"
+    },
+    {
+      name: "Technical University of Munich (TUM)",
+      country: "Germany",
+      levels: ["bachelor", "master"],
+      budget: "low",
+      tuitionLabel: "€8,000–€12,000/yr (Master's); lower for Bachelor's",
+      earning: "high",
+      earningLabel: "~€45k–€55k typical German grad average; STEM higher",
+      programs: "Mechanical & Electrical Engineering, Computer Science, Data Science (most English-taught programs are at Master's level)"
+    },
+    {
+      name: "Bocconi University",
+      country: "Italy",
+      levels: ["bachelor", "master"],
+      budget: "mid",
+      tuitionLabel: "€17,000–€18,500/yr (varies by program)",
+      earning: "veryhigh",
+      earningLabel: "Finance/MFin grads often €100k+ within a few years",
+      programs: "Finance, Economics, Management, Law"
+    },
+    {
+      name: "Sciences Po",
+      country: "France",
+      levels: ["bachelor", "master"],
+      budget: "low",
+      tuitionLabel: "€0–€20,600/yr (income-based sliding scale)",
+      earning: "strong",
+      earningLabel: "~€30k–€42k typical French grad average",
+      programs: "International Affairs, Political Science, Economics, Law"
+    },
+    {
+      name: "KU Leuven",
+      country: "Belgium",
+      levels: ["bachelor", "master"],
+      budget: "low",
+      tuitionLabel: "€5,000–€9,500/yr",
+      earning: "strong",
+      earningLabel: "Competitive with Belgian graduate averages",
+      programs: "Engineering, Business, Health Sciences, Law"
+    }
+  ];
+
+  const budgetLabels = { low: "Low Cost", mid: "Mid Cost", high: "High Cost" };
+  const earningLabels = { strong: "Strong", high: "High", veryhigh: "Very High" };
+  const earningBadgeClass = { strong: "badge-low", high: "badge-mid", veryhigh: "badge-high" };
+
+  const state = { country: new Set(), budget: new Set(), earning: new Set(), level: new Set() };
+  const levelLabels = { bachelor: "Bachelor's", master: "Master's" };
+
+  function slugify(str) {
+    return str
+      .toLowerCase()
+      .replace(/[()]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+  }
+
+  function buildCountryChips() {
+    const countries = [...new Set(opportunities.map(o => o.country))].sort();
+    const wrap = document.getElementById("country-filters");
+    countries.forEach(c => {
+      const btn = document.createElement("button");
+      btn.className = "chip";
+      btn.dataset.filter = "country";
+      btn.dataset.value = c;
+      btn.textContent = c;
+      wrap.appendChild(btn);
+    });
+  }
+
+  function render() {
+    const grid = document.getElementById("results-grid");
+    grid.innerHTML = "";
+
+    const filtered = opportunities.filter(o => {
+      const cOk = state.country.size === 0 || state.country.has(o.country);
+      const bOk = state.budget.size === 0 || state.budget.has(o.budget);
+      const eOk = state.earning.size === 0 || state.earning.has(o.earning);
+      const lOk = state.level.size === 0 || o.levels.some(lv => state.level.has(lv));
+      return cOk && bOk && eOk && lOk;
+    });
+
+    document.getElementById("result-count").textContent =
+      filtered.length + (filtered.length === 1 ? " university" : " universities");
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="no-results">No universities match those filters yet — try widening your search.</div>';
+      return;
+    }
+
+    filtered.forEach(o => {
+      const card = document.createElement("div");
+      card.className = "opp-card";
+      card.id = slugify(o.name);
+      card.innerHTML = `
+        <div class="opp-top">
+          <div>
+            <h3>${o.name}</h3>
+            <div class="opp-country">${o.country}</div>
+          </div>
+          <span class="opp-badge ${earningBadgeClass[o.earning]}">${earningLabels[o.earning]} Earnings</span>
+        </div>
+        <div class="opp-stats">
+          <div class="opp-stat">
+            <div class="num">${budgetLabels[o.budget]}</div>
+            <div class="label">${o.tuitionLabel}</div>
+          </div>
+          <div class="opp-stat">
+            <div class="num">${earningLabels[o.earning]}</div>
+            <div class="label">${o.earningLabel}</div>
+          </div>
+        </div>
+        <div class="opp-programs"><strong>Popular programs:</strong> ${o.programs}</div>
+        <div class="opp-levels">${o.levels.map(lv => `<span class="level-pill">${levelLabels[lv]}</span>`).join("")}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function toggleChip(btn) {
+    const filter = btn.dataset.filter;
+    const value = btn.dataset.value;
+    const set = state[filter];
+    if (set.has(value)) {
+      set.delete(value);
+      btn.classList.remove("active");
+    } else {
+      set.add(value);
+      btn.classList.add("active");
+    }
+    render();
+  }
+
+  buildCountryChips();
+
+  document.querySelectorAll(".chip").forEach(chip => {
+    chip.addEventListener("click", () => toggleChip(chip));
+  });
+
+  document.getElementById("reset-btn").addEventListener("click", () => {
+    state.country.clear();
+    state.budget.clear();
+    state.earning.clear();
+    state.level.clear();
+    document.querySelectorAll(".chip.active").forEach(c => c.classList.remove("active"));
+    render();
+  });
+
+  render();
+
+  if (window.location.hash) {
+    const target = document.querySelector(window.location.hash);
+    if (target) {
+      target.classList.add("highlight-pulse");
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => target.classList.remove("highlight-pulse"), 2500);
+    }
+  }
+</script>
+
+</body>
+</html>

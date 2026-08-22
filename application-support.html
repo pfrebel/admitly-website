@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Application Support — Admitly</title>
+<style>
+  :root {
+    --bg: #0f0f14;
+    --bg-alt: #16161d;
+    --text: #f2f2f4;
+    --text-muted: #bcbcc8;
+    --accent: #6c5ce7;
+    --accent-text: #ab9dff;
+    --accent-hover: #5849c4;
+    --border: #26262f;
+    --radius: 12px;
+    --max-width: 1080px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(15, 15, 20, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+
+  .logo { font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+
+  .nav-links a {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+
+  .btn-outline { border-color: var(--border); color: var(--text); background: transparent; }
+  .btn-outline:hover { border-color: var(--text-muted); }
+
+  .page-hero { padding: 80px 0 20px; text-align: center; }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    background: rgba(108, 92, 231, 0.12);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .page-hero p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .page-hero p + p { margin-top: 14px; }
+
+  section { padding: 60px 0; }
+
+  h2 {
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  /* Tier comparison */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .tier-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px;
+  }
+
+  .tier-card.premium {
+    border-color: rgba(108, 92, 231, 0.5);
+    box-shadow: 0 0 0 1px rgba(108, 92, 231, 0.15);
+  }
+
+  .tier-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--accent);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
+  .tier-card h3 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .tier-tagline {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tier-list { list-style: none; }
+
+  .tier-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 13px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .tier-list li:first-child { border-top: none; padding-top: 0; }
+
+  .tier-list li::before {
+    content: "✓";
+    color: var(--accent-text);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .tier-list .item-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .tier-list .item-desc {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+  }
+
+  .tier-note {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .response-time {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 14px 18px;
+    background: rgba(108, 92, 231, 0.08);
+    border: 1px solid rgba(108, 92, 231, 0.25);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    color: var(--text);
+  }
+
+  .who-needs-it {
+    max-width: 720px;
+    margin: 0 auto 48px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+
+  .success-fee {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 32px;
+    background: rgba(108, 92, 231, 0.08);
+    border: 1px solid rgba(108, 92, 231, 0.25);
+    border-radius: var(--radius);
+  }
+
+  .success-fee h2 { margin-bottom: 12px; }
+  .success-fee p { color: var(--text-muted); }
+  .success-fee p + p { margin-top: 12px; }
+
+  .free-cv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 20px 28px;
+    background: rgba(108, 92, 231, 0.08);
+    border: 1px solid rgba(108, 92, 231, 0.25);
+    border-radius: var(--radius);
+    text-align: center;
+  }
+
+  .free-cv p {
+    color: var(--text);
+    font-size: 0.95rem;
+    max-width: 480px;
+  }
+
+  .free-cv strong { color: var(--accent-text); }
+
+  /* CTA */
+  .cta {
+    background: linear-gradient(135deg, #6c5ce7, #4834d4);
+    border-radius: 20px;
+    text-align: center;
+    padding: 60px 40px;
+    margin: 20px 24px 0;
+  }
+
+  .cta h2 { color: #fff; }
+  .cta p { color: rgba(255,255,255,0.85); max-width: 480px; margin: 0 auto 28px; }
+  .cta .btn-primary { background: #fff; color: #4834d4; }
+  .cta .btn-primary:hover { background: #f0f0f0; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 780px) {
+    .nav-links { display: none; }
+    .tier-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="index.html" class="logo">Admitly</a>
+      <ul class="nav-links">
+        <li><a href="index.html#features">Services</a></li>
+        <li><a href="opportunities.html">Universities</a></li>
+        <li><a href="your-plan.html">Countries</a></li>
+        <li><a href="your-journey.html">Your Journey</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <a href="index.html#contact" class="btn btn-primary">Book a Consultation</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Application Support</span>
+    <h1>Standard vs. Premium</h1>
+    <p>Every Application Support client gets expert help with essays, strategy, and the practical steps of moving abroad. Programs that admit around individual research fit and supervisor availability — Oxford and Cambridge above all — reward a different, deeper kind of preparation.</p>
+    <p>Premium is required for Oxbridge applications and recommended for other highly competitive, research-intensive programs.</p>
+  </div>
+</section>
+
+<section style="padding: 0 0 40px;">
+  <div class="container">
+    <div class="success-fee">
+      <h2>Success-based, by design: no offer, no fee.</h2>
+      <p>Unlike consultancies that charge large fees upfront regardless of outcome, we only get paid once you're admitted into one of your targeted programs.</p>
+      <p>That keeps our interests aligned with yours from day one — and means there's zero financial risk in working with us.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 0 0 40px;">
+  <div class="container">
+    <div class="free-cv">
+      <p><strong>Free CV check.</strong> We'll polish your CV for free first, so you can see how we work before committing to anything.</p>
+      <a href="index.html#contact" class="btn btn-outline">Get Your Free CV Check</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="container">
+    <div class="tier-grid">
+
+      <div class="tier-card">
+        <h3>Standard</h3>
+        <p class="tier-tagline">Comprehensive support for the vast majority of undergraduate and taught-master's applications.</p>
+        <ul class="tier-list">
+          <li>
+            <div>
+              <span class="item-title">Personal statement coaching</span>
+              <span class="item-desc">One-on-one guidance to craft a compelling, authentic personal statement that stands out to admissions committees.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Essay coaching</span>
+              <span class="item-desc">Feedback and editing on any supplementary essays your target programs require.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Application strategy</span>
+              <span class="item-desc">From UCAS to individual university portals, we manage timelines, requirements, and documentation so nothing slips through the cracks.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Standardized test strategy</span>
+              <span class="item-desc">A study and timing plan to hit the scores your target programs require — TOEFL, GRE, GMAT.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Visa &amp; relocation guidance</span>
+              <span class="item-desc">Support navigating student visas, accommodation, and the practical steps of moving abroad for university.</span>
+            </div>
+          </li>
+        </ul>
+        <div class="response-time">
+          ⚡ We reply within one working day.
+        </div>
+      </div>
+
+      <div class="tier-card premium">
+        <h3>Premium</h3>
+        <span class="tier-badge">Required for Oxbridge</span>
+        <p class="tier-tagline">Built for maximizing your chances of admission to the most competitive programs — where the department, the supervisor, and the fit matter as much as the grades.</p>
+        <ul class="tier-list">
+          <li>
+            <div>
+              <span class="item-title">Supervisor matching</span>
+              <span class="item-desc">We know the department and which faculty has capacity to take on master's students. Admission is subject to supervisor availability, so we find the right fit early.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Research narrative alignment</span>
+              <span class="item-desc">We match your research interests to specific research units and realistic thesis supervisors.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Transcript audit</span>
+              <span class="item-desc">A deep dive on your coursework (e.g. multivariable calculus, linear algebra, econometrics) to make the case for readiness for the first-year coursework at Oxford and similarly rigorous programs.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Standardized test strategy</span>
+              <span class="item-desc">A study and timing plan to hit the scores your target programs require — TOEFL, GRE, GMAT.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Personal statement — deep-dive</span>
+              <span class="item-desc">Built on your supervisor match, research interests, and prior coursework. This is where you can gain the most at this stage of the application — we help make it convincing, credible, and effective at conveying your skills.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Writing sample audit</span>
+              <span class="item-desc">A full structural edit of the mandatory writing sample (e.g. a 2,000-word paper) — making sure the mathematical notation, methodology, and citations are all correct and up to standard.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Referee strategy</span>
+              <span class="item-desc">Custom briefing notes for each referee, telling them exactly what to emphasize — quantitative ranking, research potential, fit for the program.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Reference diversification</span>
+              <span class="item-desc">An optimal strategy for using varying referees across different programs, to hedge against any one reference letter falling short.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">College choice</span>
+              <span class="item-desc">College selection based on departmental links, available funding, and accommodation — factoring in your personal preferences and priorities as well.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Scholarship search &amp; applications</span>
+              <span class="item-desc">We help you look for scholarships and, where applicable, help you with the application for them too.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Milestone tracking</span>
+              <span class="item-desc">A structured plan through the submission deadline, then continued support after — college placement, conditional offers, and funding acceptance.</span>
+            </div>
+          </li>
+        </ul>
+        <div class="response-time">
+          ⚡ We reply within 4 hours during UK working hours, and within 12 hours otherwise.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cta">
+    <h2>Not sure which tier is right for you?</h2>
+    <p>Tell us where you're applying and we'll tell you honestly whether Standard or Premium is the better fit.</p>
+    <a href="index.html#contact" class="btn btn-primary">Book a Free Consultation</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    &copy; 2026 Admitly. All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>
