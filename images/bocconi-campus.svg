@@ -1,0 +1,35 @@
+<svg viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyBoc" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#221c42"/>
+      <stop offset="100%" stop-color="#4834d4"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="450" fill="url(#skyBoc)"/>
+  <rect x="0" y="400" width="600" height="50" fill="#1a1730"/>
+  <!-- staggered modern blocks, inspired by the Grafton-designed campus -->
+  <rect x="60" y="300" width="150" height="100" fill="#3d3670"/>
+  <rect x="200" y="255" width="150" height="145" fill="#453d7d"/>
+  <rect x="340" y="215" width="150" height="185" fill="#5a4fc2"/>
+  <rect x="470" y="270" width="80" height="130" fill="#3d3670"/>
+  <!-- roof caps -->
+  <rect x="55" y="292" width="160" height="10" fill="#241f45"/>
+  <rect x="195" y="247" width="160" height="10" fill="#241f45"/>
+  <rect x="335" y="207" width="160" height="10" fill="#241f45"/>
+  <rect x="465" y="262" width="90" height="10" fill="#241f45"/>
+  <!-- windows -->
+  <g fill="#8b7ef0" opacity="0.55">
+    <rect x="80" y="320" width="18" height="60" rx="2"/>
+    <rect x="115" y="320" width="18" height="60" rx="2"/>
+    <rect x="150" y="320" width="18" height="60" rx="2"/>
+    <rect x="220" y="278" width="18" height="100" rx="2"/>
+    <rect x="255" y="278" width="18" height="100" rx="2"/>
+    <rect x="290" y="278" width="18" height="100" rx="2"/>
+    <rect x="360" y="238" width="18" height="140" rx="2"/>
+    <rect x="395" y="238" width="18" height="140" rx="2"/>
+    <rect x="430" y="238" width="18" height="140" rx="2"/>
+    <rect x="490" y="290" width="18" height="90" rx="2"/>
+    <rect x="520" y="290" width="18" height="90" rx="2"/>
+  </g>
+  <text x="300" y="430" text-anchor="middle" fill="#c9c4f5" font-family="Georgia, serif" font-size="22" letter-spacing="2">BOCCONI</text>
+</svg>

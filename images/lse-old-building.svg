@@ -1,0 +1,35 @@
+<svg viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyLse" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#231d44"/>
+      <stop offset="100%" stop-color="#4834d4"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="450" fill="url(#skyLse)"/>
+  <rect x="0" y="400" width="600" height="50" fill="#1a1730"/>
+  <!-- base building -->
+  <rect x="90" y="250" width="420" height="150" fill="#3d3670"/>
+  <rect x="80" y="236" width="440" height="16" fill="#241f45"/>
+  <!-- pediment -->
+  <polygon points="240,236 300,180 360,236" fill="#453d7d"/>
+  <!-- columns -->
+  <g fill="#5a4fc2">
+    <rect x="150" y="252" width="18" height="140"/>
+    <rect x="195" y="252" width="18" height="140"/>
+    <rect x="240" y="252" width="18" height="140"/>
+    <rect x="285" y="252" width="18" height="140"/>
+    <rect x="330" y="252" width="18" height="140"/>
+    <rect x="375" y="252" width="18" height="140"/>
+    <rect x="420" y="252" width="18" height="140"/>
+  </g>
+  <!-- steps -->
+  <rect x="70" y="392" width="460" height="8" fill="#241f45"/>
+  <rect x="85" y="400" width="430" height="8" fill="#1e1938"/>
+  <!-- windows row -->
+  <g fill="#8b7ef0" opacity="0.55">
+    <rect x="146" y="200" width="20" height="26" rx="2"/>
+    <rect x="290" y="200" width="20" height="26" rx="2"/>
+    <rect x="434" y="200" width="20" height="26" rx="2"/>
+  </g>
+  <text x="300" y="430" text-anchor="middle" fill="#c9c4f5" font-family="Georgia, serif" font-size="18" letter-spacing="1.5">LONDON SCHOOL OF ECONOMICS</text>
+</svg>
