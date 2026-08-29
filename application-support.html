@@ -139,7 +139,7 @@
   /* Tier comparison */
   .tier-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 28px;
     align-items: start;
   }
@@ -155,6 +155,19 @@
     border-color: rgba(108, 92, 231, 0.5);
     box-shadow: 0 0 0 1px rgba(108, 92, 231, 0.15);
   }
+
+  .tier-card.elite {
+    border-color: rgba(108, 92, 231, 0.3);
+    background: linear-gradient(180deg, rgba(108, 92, 231, 0.07), var(--bg-alt) 60%);
+  }
+
+  .tier-list.two-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0 32px;
+  }
+
+  .tier-list.two-col li { border-top: none; }
 
   .tier-badge {
     display: inline-block;
@@ -319,6 +332,7 @@
     .nav-links li { width: 100%; }
     .nav-links a { display: block; padding: 12px 0; }
     .tier-grid { grid-template-columns: 1fr; }
+    .tier-list.two-col { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -336,7 +350,7 @@
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
-      <a href="mailto:info@joinadmitly.eu?subject=Inquiry%20about%20Admitly&amp;body=Hi%20Admitly%20team%2C%0A%0AI'm%20interested%20in%20learning%20more%20about%20your%20advisory%20and%20application%20support%20services.%0A%0AA%20bit%20about%20me%3A%0A%E2%80%A2%20Current%20level%20of%20study%3A%0A%E2%80%A2%20Countries%2Fprograms%20I'm%20considering%3A%0A%E2%80%A2%20Timeline%3A%0A%0AI%20would%20like%20to%20book%20a%20free%20consultation%20to%20discuss%20my%20options%20and%20get%20to%20know%20Admitly.%0A%0AThanks!" class="btn btn-primary">Book a Consultation</a>
+      <a href="https://calendly.com/teamadmitly/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a Consultation</a>
       <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
     </nav>
   </div>
@@ -345,7 +359,7 @@
 <section class="page-hero">
   <div class="container">
     <span class="eyebrow">Application Support</span>
-    <h1>Standard vs. Premium</h1>
+    <h1>Find the Right Fit for You</h1>
     <p>Every Application Support client gets expert help with essays, strategy, and the practical steps of moving abroad. Programs that admit around individual research fit and supervisor availability, Oxford and Cambridge above all, reward a different, deeper kind of preparation.</p>
     <p>Premium is required for Oxbridge applications and recommended for other highly competitive, research-intensive programs.</p>
   </div>
@@ -408,6 +422,12 @@
               <span class="item-desc">Support navigating student visas, accommodation, and the practical steps of moving abroad for university.</span>
             </div>
           </li>
+          <li>
+            <div>
+              <span class="item-title">Milestone tracking</span>
+              <span class="item-desc">A structured plan through the submission deadline, then continued support after: decisions, conditional offers, and enrollment steps.</span>
+            </div>
+          </li>
         </ul>
         <div class="response-time">
           ⚡ We reply within one working day.
@@ -417,7 +437,7 @@
       <div class="tier-card premium">
         <h3>Premium</h3>
         <span class="tier-badge">Required for Oxbridge</span>
-        <p class="tier-tagline">Built for maximizing your chances of admission to the most competitive programs, where the department, the supervisor, and the fit matter as much as the grades.</p>
+        <p class="tier-tagline">Everything in Standard, plus what's needed to maximize your chances at the most competitive programs, where the department, the supervisor, and the fit matter as much as the grades.</p>
         <ul class="tier-list">
           <li>
             <div>
@@ -483,6 +503,34 @@
             <div>
               <span class="item-title">Milestone tracking</span>
               <span class="item-desc">A structured plan through the submission deadline, then continued support after: college placement, conditional offers, and funding acceptance.</span>
+            </div>
+          </li>
+        </ul>
+        <div class="response-time">
+          ⚡ We reply within 4 hours during UK working hours, and within 12 hours otherwise.
+        </div>
+      </div>
+
+      <div class="tier-card elite">
+        <h3>Elite</h3>
+        <p class="tier-tagline">Everything in Premium, plus an extra layer of oversight and access for the highest-stakes applications.</p>
+        <ul class="tier-list">
+          <li>
+            <div>
+              <span class="item-title">Second opinion review</span>
+              <span class="item-desc">Two advisors independently review every document before it goes out, so nothing gets missed.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Weekly phone call</span>
+              <span class="item-desc">A standing weekly call with your advisor to check progress and adjust strategy in real time.</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="item-title">Exhaustive scholarship search &amp; unlimited applications</span>
+              <span class="item-desc">A comprehensive search across national and international scholarships, funding bodies, and grants, with unlimited support applying to as many as you qualify for.</span>
             </div>
           </li>
         </ul>
