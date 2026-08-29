@@ -1,0 +1,60 @@
+          <a href="opportunities.html#university-of-edinburgh" class="uni-pin-link">
+            <line class="uni-lead-line" x1="219.4" y1="174.4" x2="-15" y2="55" stroke="#4ea1d3"/>
+            <circle class="uni-dot" cx="219.4" cy="174.4" r="5" fill="#fff" stroke="#4ea1d3" stroke-width="2.2"/>
+            <text class="uni-label-text" x="-15" y="55" text-anchor="end" dominant-baseline="middle">University of Edinburgh</text>
+          </a>
+          <a href="opportunities.html#university-of-cambridge" class="uni-pin-link">
+            <line class="uni-lead-line" x1="265.7" y1="263.9" x2="-15" y2="157" stroke="#4ea1d3"/>
+            <circle class="uni-dot" cx="265.7" cy="263.9" r="5" fill="#fff" stroke="#4ea1d3" stroke-width="2.2"/>
+            <text class="uni-label-text" x="-15" y="157" text-anchor="end" dominant-baseline="middle">University of Cambridge</text>
+          </a>
+          <a href="opportunities.html#university-of-oxford" class="uni-pin-link">
+            <line class="uni-lead-line" x1="246.4" y1="274.2" x2="-15" y2="259" stroke="#4ea1d3"/>
+            <circle class="uni-dot" cx="246.4" cy="274.2" r="5" fill="#fff" stroke="#4ea1d3" stroke-width="2.2"/>
+            <text class="uni-label-text" x="-15" y="259" text-anchor="end" dominant-baseline="middle">University of Oxford</text>
+          </a>
+          <a href="opportunities.html#imperial-college-london" class="uni-pin-link">
+            <line class="uni-lead-line" x1="256.2" y1="276.7" x2="-15" y2="361" stroke="#4ea1d3"/>
+            <circle class="uni-dot" cx="256.2" cy="276.7" r="5" fill="#fff" stroke="#4ea1d3" stroke-width="2.2"/>
+            <text class="uni-label-text" x="-15" y="361" text-anchor="end" dominant-baseline="middle">Imperial College London</text>
+          </a>
+          <a href="opportunities.html#london-school-of-economics-lse" class="uni-pin-link">
+            <line class="uni-lead-line" x1="268.2" y1="276.7" x2="-15" y2="463" stroke="#4ea1d3"/>
+            <circle class="uni-dot" cx="268.2" cy="276.7" r="5" fill="#fff" stroke="#4ea1d3" stroke-width="2.2"/>
+            <text class="uni-label-text" x="-15" y="463" text-anchor="end" dominant-baseline="middle">London School of Economics (LSE)</text>
+          </a>
+          <a href="opportunities.html#university-college-london-ucl" class="uni-pin-link">
+            <line class="uni-lead-line" x1="262.2" y1="286.7" x2="-15" y2="565" stroke="#4ea1d3"/>
+            <circle class="uni-dot" cx="262.2" cy="286.7" r="5" fill="#fff" stroke="#4ea1d3" stroke-width="2.2"/>
+            <text class="uni-label-text" x="-15" y="565" text-anchor="end" dominant-baseline="middle">University College London (UCL)</text>
+          </a>
+          <a href="opportunities.html#university-of-amsterdam" class="uni-pin-link">
+            <line class="uni-lead-line" x1="332.7" y1="260.2" x2="655" y2="55" stroke="#6c5ce7"/>
+            <circle class="uni-dot" cx="332.7" cy="260.2" r="5" fill="#fff" stroke="#6c5ce7" stroke-width="2.2"/>
+            <text class="uni-label-text" x="655" y="55" text-anchor="start" dominant-baseline="middle">University of Amsterdam</text>
+          </a>
+          <a href="opportunities.html#ku-leuven" class="uni-pin-link">
+            <line class="uni-lead-line" x1="329.8" y1="293.7" x2="655" y2="157" stroke="#6c5ce7"/>
+            <circle class="uni-dot" cx="329.8" cy="293.7" r="5" fill="#fff" stroke="#6c5ce7" stroke-width="2.2"/>
+            <text class="uni-label-text" x="655" y="157" text-anchor="start" dominant-baseline="middle">KU Leuven</text>
+          </a>
+          <a href="opportunities.html#sciences-po" class="uni-pin-link">
+            <line class="uni-lead-line" x1="296.9" y1="337.7" x2="655" y2="259" stroke="#6c5ce7"/>
+            <circle class="uni-dot" cx="296.9" cy="337.7" r="5" fill="#fff" stroke="#6c5ce7" stroke-width="2.2"/>
+            <text class="uni-label-text" x="655" y="259" text-anchor="start" dominant-baseline="middle">Sciences Po</text>
+          </a>
+          <a href="opportunities.html#technical-university-of-munich-tum" class="uni-pin-link">
+            <line class="uni-lead-line" x1="426.1" y1="352.9" x2="655" y2="361" stroke="#6c5ce7"/>
+            <circle class="uni-dot" cx="426.1" cy="352.9" r="5" fill="#fff" stroke="#6c5ce7" stroke-width="2.2"/>
+            <text class="uni-label-text" x="655" y="361" text-anchor="start" dominant-baseline="middle">Technical University of Munich (TUM)</text>
+          </a>
+          <a href="opportunities.html#eth-zurich" class="uni-pin-link">
+            <line class="uni-lead-line" x1="383.6" y1="368.7" x2="655" y2="463" stroke="#ff6b6b"/>
+            <circle class="uni-dot" cx="383.6" cy="368.7" r="5" fill="#fff" stroke="#ff6b6b" stroke-width="2.2"/>
+            <text class="uni-label-text" x="655" y="463" text-anchor="start" dominant-baseline="middle">ETH Zurich</text>
+          </a>
+          <a href="opportunities.html#bocconi-university" class="uni-pin-link">
+            <line class="uni-lead-line" x1="392.6" y1="407.5" x2="655" y2="565" stroke="#6c5ce7"/>
+            <circle class="uni-dot" cx="392.6" cy="407.5" r="5" fill="#fff" stroke="#6c5ce7" stroke-width="2.2"/>
+            <text class="uni-label-text" x="655" y="565" text-anchor="start" dominant-baseline="middle">Bocconi University</text>
+          </a>
